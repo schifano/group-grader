@@ -1,0 +1,27 @@
+<course>
+    <category  name="IT 226">
+		<category name="Exams">
+			<item name="Midterm" outof="110.0" weight="17.0"></item>
+			<item name="Final Exam" outof="110.0" weight="18.0"></item>
+		</category>
+		
+		<category name="Individual Assignments">
+				<item name="Swing GUI Conference Program" outof="50.0" weight="7.5">	 </item>
+				<item name="Assignment 2" outof="50.0" weight="7.5">	 </item>
+				<item name="Assignment 3" outof="50.0" weight="7.5">	 </item>
+				<item name="Assignment 4" outof="50.0" weight="7.5">	 </item>
+
+		</category>
+		
+		<category name="Group Projects">
+			<item name="Lab Selector Project" outof="75.0" weight="15"></item>
+			<item name="Android Project" outof="75.0" weight="15"></item>
+		</category>
+		
+		<category name="Homework, Quizzes, Participation">
+			<item name="01 - GUI Using Dialog Boxes" outof="20.0" weight="2.5"></item>
+			<item name="02 - GUID Using Menu Files" outof="20.0" weight="2.5"></item>
+		</category>	
+		
+	</category>
+</course>
