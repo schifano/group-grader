@@ -119,7 +119,7 @@ class CourseXMLHandler extends DefaultHandler
 			{
 				//add a new Category object to the current top of stack
 				if (names.isEmpty())
-						course = new Course(name);
+						course = Course.getInstance();
 				else
 					course.addCategory(names.peek(),new Category(name));
 				names.push(name);
@@ -138,7 +138,7 @@ class CourseXMLHandler extends DefaultHandler
 			if (name.length()>0)
 			{
 				//create the course
-				course = new Course(name);
+				course = Course.getInstance(name);
 				names.push(name);
 			}			
 		}

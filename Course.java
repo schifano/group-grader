@@ -14,17 +14,41 @@ public class Course
 	private Category gradebook;
 	private ArrayList<String> gradeItemNames;
 	private ArrayList<String> categoryNames;
+	private static Course INSTANCE;
 	
 	/**
 	 * Default constructor, simply creates the Category object
 	 */
-	public Course(String name)
+	private Course(String name)
 	{
 		gradebook = new Category(name);
 		gradeItemNames = new ArrayList<String>();
 		categoryNames = new ArrayList<String>();
 	}
 	
+	public static Course getInstance(String name)
+	{
+		if(INSTANCE == null)
+			INSTANCE = new Course(name);
+		else
+		{
+			System.out.println("COURSE already instantiated" );
+			System.exit(0);
+		}
+		return INSTANCE;
+	}
+	public static Course getInstance()
+		{
+			if(INSTANCE == null)
+			{	
+				System.out.println("Course requires name for first instantiation");
+				System.exit(0);
+			}
+			else
+				;	
+			return INSTANCE;
+			
+	}
 	public String getName()
 	{
 		return gradebook.getName();

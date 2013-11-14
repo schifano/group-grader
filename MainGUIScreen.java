@@ -111,7 +111,6 @@ public class MainGUIScreen extends JFrame
 					XMLFile = fc.getSelectedFile();
 				}
 				notify();
-				dispose();
 			}
 		}
 	}
