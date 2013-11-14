@@ -32,23 +32,11 @@ public class Course
 			INSTANCE = new Course(name);
 		else
 		{
-			System.out.println("COURSE already instantiated" );
-			System.exit(0);
+			;
 		}
 		return INSTANCE;
 	}
-	public static Course getInstance()
-		{
-			if(INSTANCE == null)
-			{	
-				System.out.println("Course requires name for first instantiation");
-				System.exit(0);
-			}
-			else
-				;	
-			return INSTANCE;
-			
-	}
+
 	public String getName()
 	{
 		return gradebook.getName();

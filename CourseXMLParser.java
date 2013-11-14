@@ -104,7 +104,6 @@ class CourseXMLHandler extends DefaultHandler
 	@Override
 	public void startElement(String uri,String localName,String qName,Attributes attributes)
 	{
-		
 		if (qName.equals("category"))
 		{
 			String name = "";
@@ -119,7 +118,7 @@ class CourseXMLHandler extends DefaultHandler
 			{
 				//add a new Category object to the current top of stack
 				if (names.isEmpty())
-						course = Course.getInstance();
+						course = Course.getInstance(name);
 				else
 					course.addCategory(names.peek(),new Category(name));
 				names.push(name);
