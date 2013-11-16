@@ -33,7 +33,6 @@ public class MainGUIScreen extends JFrame
 	
 	
 	private ButtonPanel buttonPanel; // These are the assets for the button panel
-	// private FilePanel filePanel; // These are the assets for the file panel
 	
 	private File XMLFile; // These variable are used to create a new file
 	private final JFileChooser fc = new JFileChooser(); // file chooser
@@ -53,25 +52,17 @@ public class MainGUIScreen extends JFrame
 	
 	public void buildScreen()
 	{
-		// builds panels and sets up frames
+		// Builds all panels
 		buildCoursePanel();
 		buildGradePanel();
-		
-		
 		buildButtonPanel();
-		// buildFilePanel();
 	
-		
-
-		/*
-		 * adds the filepanel to the frame
-		 */
+		// Adds all panels to the frame
 		add(coursePanel, BorderLayout.NORTH);
 		add(gradePanel, BorderLayout.CENTER);
-		
-		// add(filePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 
+		// Causes window to be sized to fit the preferred size and layouts of its subcomponents 
 		pack();
 		setVisible(true);
 	}
@@ -106,7 +97,6 @@ public class MainGUIScreen extends JFrame
 		}
 		courseField.setEnabled(false);
 
-		
 		coursePanel.add(blankLabel, BorderLayout.NORTH);
 		coursePanel.add(courseLabel, BorderLayout.WEST);
 		coursePanel.add(courseField, BorderLayout.CENTER);
@@ -144,20 +134,9 @@ public class MainGUIScreen extends JFrame
 	{
 		buttonPanel = new ButtonPanel();
 		buttonPanel.getSaveButton().addActionListener(new loadExistingButtonListener());
-		
-		buttonPanel = new ButtonPanel();
 		buttonPanel.getCalculateButton().addActionListener(new calculateButtonListener());
-		
-		buttonPanel = new ButtonPanel();
 		buttonPanel.getLocateButton().addActionListener(new locateButtonListener());
 	}
-
-	/*public void buildFilePanel()
-	{
-		filePanel = new FilePanel();
-		filePanel.getLocateButton().addActionListener(
-				new locateButtonListener());
-	}*/
 	
 	/**
 	 * Private class that is a button listener for loading an XML file.
@@ -171,7 +150,7 @@ public class MainGUIScreen extends JFrame
 	}
 
 	/**
-	 * Private class that is a button listener for saving an XML file.
+	 * Private class that launches the EnterGradeGUIScreen.
 	 */
 	private class calculateButtonListener implements ActionListener
 	{
