@@ -21,126 +21,148 @@ import javax.swing.JTextField;
  */
 public class MainGUIScreen extends JFrame
 {
-	/*
-	 * These are the assets for the button panel
-	 */
-	private ButtonPanel buttonPanel;
-
-	/*
-	 * These are the assets for the file panel
-	 */
-	private FilePanel filePanel;
+	private JPanel coursePanel;
+	private JLabel blankLabel; // Blank label for when no course is selected
+	private JLabel courseLabel; // This is the variable for the display of the course name
+	private JTextField courseField; // Holds the name of the course selected 
+	private Course processingCourse; // course to contain information
 	
-	/*
-	 * This is the variable for the display of the course name
-	 */
-	private JLabel courseName;
-
-	/*
-	 * This is used to display the course performance
-	 */
-	private JTextField performance;
-	/*
-	 * These variable are used to create a new file
-	 */
-	private File XMLFile;
-
-	/*
-	 * file chooser
-	 */
-	private final JFileChooser fc = new JFileChooser();
+	private JPanel gradePanel;
+	private JLabel gradeLabel;
+	private JTextField gradeField; // This is used to display the course performance
 	
-	/*
-	 *    course to contain information
-	 */
-	private Course processingCourse;
+	
+	private ButtonPanel buttonPanel; // These are the assets for the button panel
+	// private FilePanel filePanel; // These are the assets for the file panel
+	
+	private File XMLFile; // These variable are used to create a new file
+	private final JFileChooser fc = new JFileChooser(); // file chooser
+	
 	/**
 	 * default constructor
 	 */
 	public MainGUIScreen()
 	{
 		super("Course Performance Calculator");
-		setSize(600, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(600, 450);
+		
 		setLayout(new BorderLayout());
 		processingCourse = Course.getInstance();
 	}
 	
 	public void buildScreen()
 	{
-		/*
-		 * builds the panels
-		 */
-		/*
-		 * sets up the frame
-		 */
+		// builds panels and sets up frames
+		buildCoursePanel();
+		buildGradePanel();
 		
-	
+		
 		buildButtonPanel();
-		buildCourseLabel();
-		buildFilePanel();
-		buildCoursePerformance();
+		// buildFilePanel();
+	
 		
 
 		/*
 		 * adds the filepanel to the frame
 		 */
-		add(filePanel, BorderLayout.CENTER);
-		add(courseName, BorderLayout.NORTH);
-		add(buttonPanel, BorderLayout.SOUTH);
-		add(performance, BorderLayout.WEST);
+		add(coursePanel, BorderLayout.NORTH);
+		add(gradePanel, BorderLayout.CENTER);
 		
+		// add(filePanel, BorderLayout.CENTER);
+		add(buttonPanel, BorderLayout.SOUTH);
 
 		pack();
 		setVisible(true);
 	}
 
-	/**
-	 * builds the panel that contains all the buttons
-	 */
-	public void buildButtonPanel()
-	{
-		buttonPanel = new ButtonPanel();
-		buttonPanel.getSaveButton().addActionListener(
-				new loadExistingListener());
-		buttonPanel = new ButtonPanel();
-		buttonPanel.getCalculateButton().addActionListener(new calculateListener());
-	}
-
+	
+	// XML
 	public File getXMLFile()
 	{
 		return this.XMLFile;
 	}
-
-	public void buildCourseLabel()
+	
+	
+	/**
+	 * Method that builds the course panel.
+	 */
+	public void buildCoursePanel()
 	{
-		String courseTitle = "None selcted";
-		if (processingCourse != null)
-		{
+		coursePanel = new JPanel();
+		coursePanel.setLayout(new BorderLayout());
+		
+		blankLabel = new JLabel(" ");
+		courseLabel = new JLabel("Course: ");
+		
+		String courseTitle;
+		if (processingCourse != null) {
 			courseTitle = processingCourse.getName();
+			courseField = new JTextField(courseTitle);
 		}
-		String display = "        Current course selected: " + courseTitle;
-		courseName = new JLabel(display);
+		else {
+			courseTitle = "No course selected.";
+			courseField = new JTextField(courseTitle);
+		}
+		courseField.setEnabled(false);
+
+		
+		coursePanel.add(blankLabel, BorderLayout.NORTH);
+		coursePanel.add(courseLabel, BorderLayout.WEST);
+		coursePanel.add(courseField, BorderLayout.CENTER);
 	}
-	public void buildCoursePerformance()
-	{
+	
+	/**
+	 * Method that builds the grade panel to display the 
+	 * selected course performance score as a percentage
+	 */
+	public void buildGradePanel() {
+
+		gradePanel = new JPanel();
+		gradePanel.setLayout(new BorderLayout());
+		
+		gradeLabel = new JLabel("Percentage: ");
+		
 		double coursePerformance = 0.0;
 		if (processingCourse != null)
 		{
 			coursePerformance = processingCourse.getPercentageTotal();			
 		}
 		String display = "  " + coursePerformance + " % ";
-		performance = new JTextField(display);
-	}
-	public void buildFilePanel()
-	{
+		gradeField = new JTextField(display);
+		gradeField.setEnabled(false);
 		
+		gradePanel.add(gradeLabel, BorderLayout.WEST);
+		gradePanel.add(gradeField, BorderLayout.CENTER);
+	}
+	
+	
+	/**
+	 * builds the panel that contains all the buttons
+	 */
+	public void buildButtonPanel()
+	{
+		buttonPanel = new ButtonPanel();
+		buttonPanel.getSaveButton().addActionListener(new loadExistingButtonListener());
+		
+		buttonPanel = new ButtonPanel();
+		buttonPanel.getCalculateButton().addActionListener(new calculateButtonListener());
+		
+		buttonPanel = new ButtonPanel();
+		buttonPanel.getLocateButton().addActionListener(new locateButtonListener());
+	}
+
+	/*public void buildFilePanel()
+	{
 		filePanel = new FilePanel();
 		filePanel.getLocateButton().addActionListener(
 				new locateButtonListener());
-	}
-
-	private class loadExistingListener implements ActionListener
+	}*/
+	
+	/**
+	 * Private class that is a button listener for loading an XML file.
+	 */
+	private class loadExistingButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
@@ -148,7 +170,10 @@ public class MainGUIScreen extends JFrame
 		}
 	}
 
-	private class calculateListener implements ActionListener
+	/**
+	 * Private class that is a button listener for saving an XML file.
+	 */
+	private class calculateButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
@@ -166,6 +191,9 @@ public class MainGUIScreen extends JFrame
 		}
 	}
 	
+	/**
+	 * Private class that is a button listener for selecting an XML file.
+	 */
 	private class locateButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -182,5 +210,4 @@ public class MainGUIScreen extends JFrame
 			}
 		}
 	}
-
 }
