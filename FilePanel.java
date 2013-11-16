@@ -1,4 +1,4 @@
-package edu.ilstu;
+/*package edu.ilstu;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,8 +24,7 @@ public class FilePanel extends JPanel
 		blankLabel = new JLabel(" ");
 		
 		
-		locateButton = new JButton(
-				"Choose XML File containing course information");
+		locateButton = new JButton("Choose XML File containing course information");
 		locateButton.setPreferredSize(new Dimension(10, 20));
 
 		add(blankLabel);
@@ -41,4 +40,4 @@ public class FilePanel extends JPanel
 	}
 	
 
-}
+} */
