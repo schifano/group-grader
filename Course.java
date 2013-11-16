@@ -36,7 +36,10 @@ public class Course
 		}
 		return INSTANCE;
 	}
-
+	public static Course getInstance()
+	{
+		return INSTANCE;
+	}
 	public String getName()
 	{
 		return gradebook.getName();
@@ -129,7 +132,7 @@ public class Course
 	
 	public String toString()
 	{
-		int i;
+		/*int i;
 		
 		  String str = "Course Name: "+gradebook.getName()+"\n";
 		
@@ -141,9 +144,9 @@ public class Course
 		
 		str = str + "Total (evaluated + estimated): "+getPercentageScore()+" out of "+getPercentageTotal();
 		
-		return str;
+		return str;*/
 		
-		//return gradebook.toString();
+		return gradebook.toString();
 	}
 	
 	public String toXML()
