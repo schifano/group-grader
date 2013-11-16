@@ -10,16 +10,19 @@ public class ButtonPanel extends JPanel
 {
 	private JButton calculateButton;
 	private JButton saveButton;
+	private JButton locateButton;
 	
 	public ButtonPanel()
 	{
 		setLayout(new FlowLayout());
-
-		calculateButton = new JButton("Review and enter grades in course");
-
-		saveButton = new JButton("Save Changes to XML file");
-
+		
+		locateButton = new JButton("Load XML");
+		add(locateButton);
+		
+		calculateButton = new JButton("Update Grades");
 		add(calculateButton);
+		
+		saveButton = new JButton("Save XML");
 		add(saveButton);
 
 		setVisible(true);
@@ -34,4 +37,10 @@ public class ButtonPanel extends JPanel
 	{
 		return calculateButton;
 	}
+	
+	public JButton getLocateButton() 
+	{
+		return locateButton;
+	}
+	
 }
