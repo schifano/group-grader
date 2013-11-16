@@ -1,31 +1,35 @@
 package edu.ilstu;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class FilePanel extends JPanel
 {
-	private JTextField fileField;
+	
+	private JLabel blankLabel;
+	
 
 	private JButton locateButton;
 
 	public FilePanel()
 	{
-		setLayout(new GridLayout(2, 1));
+		setLayout(new BorderLayout());
 		setSize(100, 100);
 		
-		fileField = new JTextField("File: ");
-		fileField.setEditable(false);
+		blankLabel = new JLabel(" ");
+		
 		
 		locateButton = new JButton(
 				"Choose XML File containing course information");
+		locateButton.setPreferredSize(new Dimension(10, 20));
+
+		add(blankLabel);
 		
-		add(fileField);
 		add(locateButton);
 		
 		setVisible(true);
@@ -36,8 +40,5 @@ public class FilePanel extends JPanel
 		return locateButton;
 	}
 	
-	public void setText(String str)
-	{
-			this.fileField.setText(str);
-	}
+
 }

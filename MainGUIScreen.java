@@ -1,7 +1,7 @@
 package edu.ilstu;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,6 +9,8 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * Creates the initial interface for user to create a new file or load an
@@ -28,9 +30,18 @@ public class MainGUIScreen extends JFrame
 	 * These are the assets for the file panel
 	 */
 	private FilePanel filePanel;
+	
+	/*
+	 * This is the variable for the display of the course name
+	 */
+	private JLabel courseName;
 
 	/*
-	 * These variable are used to create a new file should the user decide
+	 * This is used to display the course performance
+	 */
+	private JTextField performance;
+	/*
+	 * These variable are used to create a new file
 	 */
 	private File XMLFile;
 
@@ -38,31 +49,47 @@ public class MainGUIScreen extends JFrame
 	 * file chooser
 	 */
 	private final JFileChooser fc = new JFileChooser();
-
+	
+	/*
+	 *    course to contain information
+	 */
+	private Course processingCourse;
 	/**
 	 * default constructor
 	 */
 	public MainGUIScreen()
 	{
-		/*
-		 * sets up the frame
-		 */
 		super("Course Performance Calculator");
 		setSize(600, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new GridLayout(0,1));
-
+		setLayout(new BorderLayout());
+		processingCourse = Course.getInstance();
+	}
+	
+	public void buildScreen()
+	{
 		/*
 		 * builds the panels
 		 */
-		buildFilePanel();
+		/*
+		 * sets up the frame
+		 */
+		
+	
 		buildButtonPanel();
+		buildCourseLabel();
+		buildFilePanel();
+		buildCoursePerformance();
+		
 
 		/*
 		 * adds the filepanel to the frame
 		 */
 		add(filePanel, BorderLayout.CENTER);
+		add(courseName, BorderLayout.NORTH);
 		add(buttonPanel, BorderLayout.SOUTH);
+		add(performance, BorderLayout.WEST);
+		
 
 		pack();
 		setVisible(true);
@@ -85,8 +112,29 @@ public class MainGUIScreen extends JFrame
 		return this.XMLFile;
 	}
 
+	public void buildCourseLabel()
+	{
+		String courseTitle = "None selcted";
+		if (processingCourse != null)
+		{
+			courseTitle = processingCourse.getName();
+		}
+		String display = "        Current course selected: " + courseTitle;
+		courseName = new JLabel(display);
+	}
+	public void buildCoursePerformance()
+	{
+		double coursePerformance = 0.0;
+		if (processingCourse != null)
+		{
+			coursePerformance = processingCourse.getPercentageTotal();			
+		}
+		String display = "  " + coursePerformance + " % ";
+		performance = new JTextField(display);
+	}
 	public void buildFilePanel()
 	{
+		
 		filePanel = new FilePanel();
 		filePanel.getLocateButton().addActionListener(
 				new locateButtonListener());
@@ -104,16 +152,24 @@ public class MainGUIScreen extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			EnterGradeGUIScreen enter = new EnterGradeGUIScreen();
-			dispose();
+			if(processingCourse != null)
+			{
+				EnterGradeGUIScreen enter = new EnterGradeGUIScreen();
+				dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog
+				(null, "Please select an XML file containing course information first.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			
 		}
 	}
 	
-	private class locateButtonListener extends Thread implements ActionListener
+	private class locateButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			synchronized (this)
 			{
 				fc.showOpenDialog(new JPanel());
 
@@ -122,7 +178,7 @@ public class MainGUIScreen extends JFrame
 					XMLFile = fc.getSelectedFile();
 				}
 				buttonPanel.setVisible(true);
-				notify();
+				dispose();
 			}
 		}
 	}

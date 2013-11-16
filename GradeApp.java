@@ -2,39 +2,40 @@ package edu.ilstu;
 
 import java.io.*;
 
-public class GradeApp extends Thread
-{
+public class GradeApp extends Thread {
+
 	/**
 	 * @param args
 	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) throws FileNotFoundException
-	{
-		Course processingCourse;
+	public static void main(String[] args) throws FileNotFoundException {
+		
 
 		MainGUIScreen screen = new MainGUIScreen();
-		int c =0;
-		
-		while(screen.getXMLFile() == null)
-		{	
-			System.out.println("looping");
-			// Do nothing to avoid null file exception	
-		}
-		
-			FileInputStream fin = null;
-			
+		screen.buildScreen();
+		while (screen.getXMLFile() == null) 
+		{
 			try 
 			{
-				fin = new FileInputStream(screen.getXMLFile());
-				System.out.println("after XML loading");
-				processingCourse = CourseXMLParser.readCourse(fin);
-				System.out.println(processingCourse);
-			} 
-			catch (FileNotFoundException e) 
-			{
-				// TODO Auto-generated catch block
-				System.out.println("File not found");
+				sleep(2);
 			}
-			
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+
+		FileInputStream fin = null;
+		try {
+			Course processingCourse;
+			fin = new FileInputStream(screen.getXMLFile());
+			System.out.println("after XML loading");
+			processingCourse = CourseXMLParser.readCourse(fin);
+			screen = new MainGUIScreen();
+			screen.buildScreen();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		}
+
 	}
 }

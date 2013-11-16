@@ -15,14 +15,14 @@ public class ButtonPanel extends JPanel
 	{
 		setLayout(new FlowLayout());
 
-		calculateButton = new JButton("Calculate Performance in Course");
+		calculateButton = new JButton("Review and enter grades in course");
 
 		saveButton = new JButton("Save Changes to XML file");
 
 		add(calculateButton);
 		add(saveButton);
 
-		setVisible(false);
+		setVisible(true);
 	}
 
 	public JButton getSaveButton()
