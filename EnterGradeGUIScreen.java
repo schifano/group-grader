@@ -15,11 +15,15 @@ import javax.swing.JTextField;
 public class EnterGradeGUIScreen extends JFrame
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EnterButtonPanel bPanel;
 	private EnterOptionPanel oPanel;
 	private EnterPointsPanel pPanel;
 	
-	private JTextArea grades;
+	private GradeComboBox grades;
 	private JScrollPane scroll;
 	
 	private JPanel iPanel;
@@ -33,14 +37,13 @@ public class EnterGradeGUIScreen extends JFrame
 		setSize(450, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		grades = new JTextArea(course.getInstance(" ").toString());
+		grades = new GradeComboBox();
 		
-		scroll = new JScrollPane(grades);
 		
 		buildEnterButtonPanel();
 		buildEnterInputPanel();
 		
-		add(scroll, BorderLayout.NORTH);
+		add(grades, BorderLayout.NORTH);
 		add(iPanel, BorderLayout.WEST);
 		add(bPanel, BorderLayout.SOUTH);
 		
