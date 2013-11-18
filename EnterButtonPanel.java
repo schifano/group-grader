@@ -7,7 +7,11 @@ import javax.swing.JPanel;
 
 public class EnterButtonPanel extends JPanel 
 {
-	private JButton calculate;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JButton back;
 	
 	public EnterButtonPanel()
@@ -15,10 +19,8 @@ public class EnterButtonPanel extends JPanel
 		setLayout(new FlowLayout());
 		
 		back = new JButton("Back");	
-		calculate = new JButton("Calculate");
 		
 		add(back);
-		add(calculate);
 		
 		setVisible(true);
 	}
@@ -28,8 +30,4 @@ public class EnterButtonPanel extends JPanel
 		return back;
 	}
 	
-	public JButton getCalculateButton()
-	{
-		return calculate;
-	}
 }

@@ -3,11 +3,14 @@ package edu.ilstu;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton calculateButton;
 	private JButton saveButton;
 	private JButton locateButton;

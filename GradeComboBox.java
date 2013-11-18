@@ -35,9 +35,10 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 		// Listen for when the selection changes.
 		courseTree.addTreeSelectionListener(this);
 		scrollPane = new JScrollPane(courseTree);
-		Dimension minimumSize = new Dimension(50, 50);
+		Dimension minimumSize = new Dimension(100, 100);
 		scrollPane.setMinimumSize(minimumSize);
 		add(scrollPane);
+		
 
 	}
 	
@@ -45,14 +46,18 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 	{
 		// build a temporary arrayList for Categories
 		ArrayList <String>categoryList = new ArrayList<String>();
-				
-		categoryList = processingCourse.getCategoryNames();
+		ArrayList <String>itemList = new ArrayList<String>();	
+		if (processingCourse != null)
+		{
+			categoryList = processingCourse.getCategoryNames();
+			itemList = processingCourse.getItemNames();
 		
 	    DefaultMutableTreeNode category = null;
 	    DefaultMutableTreeNode item = null;
 	    
 	    Category tempCategory = new Category("name");
 	    String categoryName = "";
+	    String itemName = "";
 		for(int i=0; i < categoryList.size(); i++)
 		{
 			categoryName = categoryList.get(i);
@@ -61,8 +66,18 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 			
 			//locate items under each Category
 			tempCategory = (Category) processingCourse.getItem(categoryName);
-
+				for(int j = 0; j < itemList.size(); j ++)
+				{
+					itemName = itemList.get(j);
+					if (tempCategory.getItem(itemName) != null)
+					{
+						GradeItem tempGradeItem = (GradeItem)tempCategory.getItem(itemName);
+						item = new DefaultMutableTreeNode(tempGradeItem);
+						category.add(item);
+					}
+				}
 			
+		}
 		}
 	}
 
@@ -72,9 +87,10 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 		if (node == null)
 			return;
 		Object nodeInfo = node.getUserObject();
-		if (node.isLeaf()) {
+		if (node.isLeaf()) 
+		{
 			GradeItem tempItem = (GradeItem) nodeInfo;
-		//	call class to enter score passing in object
+			System.out.println(tempItem);
 		
 		}
 	}

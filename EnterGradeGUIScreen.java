@@ -1,105 +1,57 @@
 package edu.ilstu;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-public class EnterGradeGUIScreen extends JFrame
-{
-	
-	/**
-	 * 
-	 */
+public class EnterGradeGUIScreen extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 	private EnterButtonPanel bPanel;
-	private EnterOptionPanel oPanel;
-	private EnterPointsPanel pPanel;
-	
+
+	private GradePanel coursePerformance;
 	private GradeComboBox grades;
-	private JScrollPane scroll;
-	
-	private JPanel iPanel;
-	private Course course;
+
+	// private JPanel iPanel;
 	private MainGUIScreen main;
-	
-	public EnterGradeGUIScreen()
-	{
+
+	public EnterGradeGUIScreen() {
 		super("Grade Entry Form");
 		setLayout(new BorderLayout());
 		setSize(450, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		grades = new GradeComboBox();
-		
-		
+
 		buildEnterButtonPanel();
-		buildEnterInputPanel();
-		
+		buildGradeDisplayPanel();
+
 		add(grades, BorderLayout.NORTH);
-		add(iPanel, BorderLayout.WEST);
+		add(coursePerformance, BorderLayout.CENTER);
 		add(bPanel, BorderLayout.SOUTH);
-		
+
 		pack();
 		setVisible(true);
 	}
-	
-	public void buildEnterButtonPanel()
-	{
+
+	public void buildEnterButtonPanel() {
 		bPanel = new EnterButtonPanel();
-		
+
 		bPanel.getBackButton().addActionListener(new BackButtonListener());
-		bPanel.getCalculateButton().addActionListener(new CalculateButtonListener());
 	}
-	
-	public void buildEnterOptionPanel()
-	{
-		oPanel = new EnterOptionPanel();
+
+	public void buildGradeDisplayPanel() {
+		coursePerformance = new GradePanel();
 	}
-	
-	public void buildEnterPointsPanel()
-	{
-		pPanel = new EnterPointsPanel();
-	}
-	
-	public void buildEnterInputPanel()
-	{
-		buildEnterOptionPanel();
-		buildEnterPointsPanel();
-		
-		iPanel = new JPanel();
-		iPanel.setLayout(new FlowLayout());
-		
-		iPanel.add(oPanel);
-		iPanel.add(pPanel);
-	}
-	
-	public static void main(String [] args)
-	{
-		EnterGradeGUIScreen test = new EnterGradeGUIScreen();
-	}
-	
-	private class BackButtonListener extends Thread implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			main = new MainGUIScreen();
+
+	private class BackButtonListener extends Thread implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 			dispose();
+			main = new MainGUIScreen();
+			main.buildScreen();
 		}
 	}
-	
-	private class CalculateButtonListener extends Thread implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			System.out.println("YOU CALCULATED!");
-		}
-	}
+
 }

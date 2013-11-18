@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,12 +29,13 @@ public class MainGUIScreen extends JFrame
 	private JTextField courseField; // Holds the name of the course selected 
 	private Course processingCourse; // course to contain information
 	
-	private JPanel gradePanel;
+	private JPanel courseGrade;
 	private JLabel gradeLabel;
 	private JTextField gradeField; // This is used to display the course performance
 	
 	
 	private ButtonPanel buttonPanel; // These are the assets for the button panel
+	// private FilePanel filePanel; // These are the assets for the file panel
 	
 	private File XMLFile; // These variable are used to create a new file
 	private final JFileChooser fc = new JFileChooser(); // file chooser
@@ -52,17 +55,19 @@ public class MainGUIScreen extends JFrame
 	
 	public void buildScreen()
 	{
-		// Builds all panels
+		// builds panels and sets up frames
 		buildCoursePanel();
 		buildGradePanel();
+		
+		
 		buildButtonPanel();
-	
-		// Adds all panels to the frame
+		
 		add(coursePanel, BorderLayout.NORTH);
-		add(gradePanel, BorderLayout.CENTER);
+		add(courseGrade, BorderLayout.CENTER);
+		
+		// add(filePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 
-		// Causes window to be sized to fit the preferred size and layouts of its subcomponents 
 		pack();
 		setVisible(true);
 	}
@@ -97,6 +102,7 @@ public class MainGUIScreen extends JFrame
 		}
 		courseField.setEnabled(false);
 
+		
 		coursePanel.add(blankLabel, BorderLayout.NORTH);
 		coursePanel.add(courseLabel, BorderLayout.WEST);
 		coursePanel.add(courseField, BorderLayout.CENTER);
@@ -108,22 +114,7 @@ public class MainGUIScreen extends JFrame
 	 */
 	public void buildGradePanel() {
 
-		gradePanel = new JPanel();
-		gradePanel.setLayout(new BorderLayout());
-		
-		gradeLabel = new JLabel("Percentage: ");
-		
-		double coursePerformance = 0.0;
-		if (processingCourse != null)
-		{
-			coursePerformance = processingCourse.getPercentageTotal();			
-		}
-		String display = "  " + coursePerformance + " % ";
-		gradeField = new JTextField(display);
-		gradeField.setEnabled(false);
-		
-		gradePanel.add(gradeLabel, BorderLayout.WEST);
-		gradePanel.add(gradeField, BorderLayout.CENTER);
+		courseGrade = new GradePanel();
 	}
 	
 	
@@ -134,10 +125,15 @@ public class MainGUIScreen extends JFrame
 	{
 		buttonPanel = new ButtonPanel();
 		buttonPanel.getSaveButton().addActionListener(new loadExistingButtonListener());
+		
+		//buttonPanel = new ButtonPanel();
 		buttonPanel.getCalculateButton().addActionListener(new calculateButtonListener());
+		
+		//buttonPanel = new ButtonPanel();
 		buttonPanel.getLocateButton().addActionListener(new locateButtonListener());
 	}
-	
+
+
 	/**
 	 * Private class that is a button listener for loading an XML file.
 	 */
@@ -145,12 +141,20 @@ public class MainGUIScreen extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			fc.showOpenDialog(new JPanel());
+			if(processingCourse != null)
+			{
+				processingCourse.toXML();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog
+			(null, "Please select an XML file containing course information first.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	/**
-	 * Private class that launches the EnterGradeGUIScreen.
+	 * Private class that is a button listener for saving an XML file.
 	 */
 	private class calculateButtonListener implements ActionListener
 	{
@@ -186,6 +190,18 @@ public class MainGUIScreen extends JFrame
 				}
 				buttonPanel.setVisible(true);
 				dispose();
+				FileInputStream fin = null;
+				if (XMLFile != null)
+				try {
+					fin = new FileInputStream(XMLFile);
+					System.out.println("after XML loading");
+					processingCourse = CourseXMLParser.readCourse(fin);
+	
+				} catch (FileNotFoundException e1) {
+					System.out.println("File not found");
+				}
+				MainGUIScreen screen = new MainGUIScreen();
+				screen.buildScreen();
 			}
 		}
 	}

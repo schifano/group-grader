@@ -10,7 +10,7 @@ public class GradeApp extends Thread {
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		
-
+		System.out.println("in main");
 		MainGUIScreen screen = new MainGUIScreen();
 		screen.buildScreen();
 		while (screen.getXMLFile() == null) 
@@ -23,18 +23,6 @@ public class GradeApp extends Thread {
 			{
 				e.printStackTrace();
 			}
-		}
-
-		FileInputStream fin = null;
-		try {
-			Course processingCourse;
-			fin = new FileInputStream(screen.getXMLFile());
-			System.out.println("after XML loading");
-			processingCourse = CourseXMLParser.readCourse(fin);
-			screen = new MainGUIScreen();
-			screen.buildScreen();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
 		}
 
 	}
