@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 public class EnterPointsPanel extends JPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private JLabel pointsLabel;
 	private JLabel weightLabel;
 	private JLabel outofLabel;

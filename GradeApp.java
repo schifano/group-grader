@@ -13,17 +13,7 @@ public class GradeApp extends Thread {
 		System.out.println("in main");
 		MainGUIScreen screen = new MainGUIScreen();
 		screen.buildScreen();
-		while (screen.getXMLFile() == null) 
-		{
-			try 
-			{
-				sleep(2);
-			}
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
+		
 		}
 
 	}
-}
