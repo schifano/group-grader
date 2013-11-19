@@ -6,48 +6,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-public class EnterScoreGUI extends JFrame {
-
+public class EnterScoreGUI extends JFrame 
+{
 	private static final long serialVersionUID = 1L;
-	
+	private ScoreButtonPanel sPanel;
 
-	// private JPanel iPanel;
-
-	public EnterScoreGUI(GradeItem gradeItem) {
+	public EnterScoreGUI() 
+	{
 		super("Score Entry");
 		setLayout(new BorderLayout());
-		setSize(200, 200);
+		setSize(600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
-		buildEnterButtonPanel();
-		buildGradeDisplayPanel();
-
-		add(grades, BorderLayout.NORTH);
-		add(coursePerformance, BorderLayout.CENTER);
-		add(bPanel, BorderLayout.SOUTH);
+		
+		
+		buildScoreButtonPanel();
+		add(new JLabel(" "), BorderLayout.NORTH);
+		add(new JLabel("Score: "), BorderLayout.WEST);
+		add(new JTextField(), BorderLayout.CENTER);
+		add(new JLabel(" "), BorderLayout.EAST);
+		add(sPanel, BorderLayout.SOUTH);
 
 		pack();
 		setVisible(true);
 	}
 
-	public void buildEnterButtonPanel() {
-		bPanel = new EnterButtonPanel();
-
-		bPanel.getBackButton().addActionListener(new BackButtonListener());
+	public void buildScoreButtonPanel() 
+	{
+		sPanel = new ScoreButtonPanel();
 	}
-
-	public void buildGradeDisplayPanel() {
-		coursePerformance = new GradePanel();
+	
+	public static void main(String [] args)
+	{
+		EnterScoreGUI app = new EnterScoreGUI();
 	}
-
-	private class BackButtonListener extends Thread implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			dispose();
-			main = new MainGUIScreen();
-			main.buildScreen();
-		}
-	}
-
+	
+	
 }

@@ -18,7 +18,8 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 	private Course processingCourse;
 	private JScrollPane scrollPane;
 
-	public GradeComboBox() {
+	public GradeComboBox() 
+	{
 		super(new GridLayout(1, 0));
 		processingCourse = Course.getInstance();
 		String displayName = "";
@@ -38,8 +39,6 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 		Dimension minimumSize = new Dimension(100, 100);
 		scrollPane.setMinimumSize(minimumSize);
 		add(scrollPane);
-		
-
 	}
 	
 	private void createNodes(DefaultMutableTreeNode top) 
@@ -76,8 +75,7 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 						category.add(item);
 					}
 				}
-			
-		}
+			}
 		}
 	}
 
