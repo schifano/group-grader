@@ -75,6 +75,7 @@ public class Category extends GradableItem
 	 */
 	public double getPercentageTotal() 
 	{
+		System.out.println("in category getpercentage");
 		// TODO Auto-generated method stub
 		double total = 0;
 		int i;
@@ -87,6 +88,7 @@ public class Category extends GradableItem
 			if ((items[i].isEvaluated()) || (items[i].isEstimated()))
 			{
 				total = total + items[i].getPercentageTotal();
+				System.out.println(items[i].getName());
 			}
 		}
 		

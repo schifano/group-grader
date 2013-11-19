@@ -91,7 +91,8 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener {
 		{
 			GradeItem tempItem = (GradeItem) nodeInfo;
 			EnterScoreGUI grades = new EnterScoreGUI(tempItem);
-		
+			System.out.println(processingCourse.getPercentageTotal());
+			System.out.println(processingCourse);
 		}
 	}
 

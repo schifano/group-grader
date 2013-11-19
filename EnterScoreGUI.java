@@ -37,29 +37,33 @@ public class EnterScoreGUI extends JFrame {
 		setVisible(true);
 	}
 
-	public void buildScoreButtonPanel() {
+	public void buildScoreButtonPanel() 
+	{
 		sPanel = new ScoreButtonPanel();
 		sPanel.getActualButton().addActionListener(new ActualListener(item));
 		sPanel.getEstimatedButton().addActionListener(new EstimatedListener(item));
-
 	}
 
 	private class ActualListener extends Thread implements ActionListener 
 	{
 		private GradeItem item;
+		private Course processingCourse;
 		public ActualListener(GradeItem item)
 		{
 			this.item = item;
+			processingCourse = Course.getInstance();
 		}
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) 
+		{
 			dispose();
 			if (scoreEntry.getText() != null) 
 			{
 				score = Double.parseDouble(scoreEntry.getText());
 				if (score != 0.0 && item != null) 
 				{
-					item.setEvaluatedPoints(item.getName(), score);
-					EnterGradeGUIScreen enter = new EnterGradeGUIScreen();
+					processingCourse.setEvaluatedPoints(item.getName(), score);
+					System.out.println("total " + processingCourse.getPercentageTotal());
+					System.out.println("score " + processingCourse.getPercentageScore());
 				}
 			}
 		}
@@ -68,8 +72,10 @@ public class EnterScoreGUI extends JFrame {
 	private class EstimatedListener extends Thread implements ActionListener 
 	{
 		private GradeItem item;
+		private Course processingCourse ;
 		public EstimatedListener(GradeItem item)
 		{
+			processingCourse = Course.getInstance();
 			this.item = item;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -79,8 +85,7 @@ public class EnterScoreGUI extends JFrame {
 				score = Double.parseDouble(scoreEntry.getText());
 				if (score != 0.0 && item != null)
 				{
-					item.setEstimatedPoints(item.getName(), score);
-					EnterGradeGUIScreen enter = new EnterGradeGUIScreen();
+					processingCourse.setEstimatedPoints(item.getName(), score);
 				}
 			}
 
