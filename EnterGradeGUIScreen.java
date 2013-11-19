@@ -10,7 +10,7 @@ public class EnterGradeGUIScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private EnterButtonPanel bPanel;
-
+	private Course processingCourse;
 	private GradePanel coursePerformance;
 	private GradeComboBox grades;
 
@@ -22,6 +22,7 @@ public class EnterGradeGUIScreen extends JFrame {
 		setLayout(new BorderLayout());
 		setSize(450, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		processingCourse = Course.getInstance();
 
 		grades = new GradeComboBox();
 

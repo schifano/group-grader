@@ -14,12 +14,12 @@ public class ScoreButtonPanel extends JPanel
 	{
 		setLayout(new FlowLayout());
 		
-		estimatedButton = new JButton("Estimated Button");
-		actualButton = new JButton("Actual Button");
+		actualButton = new JButton("Actual score");
+		estimatedButton = new JButton("Estimated score");
 		
-		add(estimatedButton);
 		add(actualButton);
-		
+		add(estimatedButton);
+				
 		setVisible(true);
 	}
 	
@@ -33,8 +33,5 @@ public class ScoreButtonPanel extends JPanel
 		return actualButton; 
 	}
 	
-	public static void main(String [] args)
-	{
-		ScoreButtonPanel test = new ScoreButtonPanel();
-	}
+	
 }

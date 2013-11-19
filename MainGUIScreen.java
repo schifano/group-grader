@@ -59,6 +59,7 @@ public class MainGUIScreen extends JFrame
 		buildCoursePanel();
 		buildGradePanel();
 		
+		
 		buildButtonPanel();
 		
 		add(coursePanel, BorderLayout.NORTH);
@@ -66,6 +67,7 @@ public class MainGUIScreen extends JFrame
 		
 		// add(filePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
+
 		pack();
 		setVisible(true);
 	}

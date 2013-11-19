@@ -16,7 +16,6 @@ public class GradePanel extends JPanel {
 	public GradePanel() 
 	{
 		processingCourse = Course.getInstance();
-		//gradePanel = new JPanel();
 		setLayout(new BorderLayout());
 		
 		gradeLabel = new JLabel("Percentage: ");
