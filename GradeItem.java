@@ -130,7 +130,7 @@ public class GradeItem extends GradableItem
 		else if (isEstimated())
 			str = str + ":Estimated "+points+" out of "+outOf;
 		else
-			str = str + ":Not available";
+			str = str + ":Not available                              ";
 		return str;
 	}
 	

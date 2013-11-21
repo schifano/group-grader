@@ -6,22 +6,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GradePanel extends JPanel {
+/**
+ * This class will display a text field containing the current performance in
+ * the class.
+ * 
+ * @author John, Rachel and Corbin
+ * 
+ */
+public class GradePanel extends JPanel
+{
 	private Course processingCourse;
 	private static final long serialVersionUID = 1L;
-	private JPanel gradePanel;
 	private JLabel gradeLabel;
 	private JTextField gradeField;
 
-	public GradePanel() 
+	public GradePanel()
 	{
 		processingCourse = Course.getInstance();
 		setLayout(new BorderLayout());
-		
+
 		gradeLabel = new JLabel("Percentage: ");
 
 		double coursePerformance = 0.0;
-		if (processingCourse != null) {
+		if (processingCourse != null)
+		{
 			coursePerformance = processingCourse.getPercentageTotal();
 		}
 		String display = "  " + coursePerformance + " % ";
@@ -32,6 +40,7 @@ public class GradePanel extends JPanel {
 		add(gradeField, BorderLayout.CENTER);
 		setVisible(true);
 	}
+
 	public JTextField getGradeField()
 	{
 		return gradeField;

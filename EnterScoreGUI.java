@@ -8,14 +8,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class EnterScoreGUI extends JFrame {
+public class EnterScoreGUI extends JFrame
+{
 	private static final long serialVersionUID = 1L;
 	private ScoreButtonPanel sPanel;
 	private JTextField scoreEntry;
 	private GradeItem item;
 	private double score;
 
-	public EnterScoreGUI(GradeItem item) 
+	/**
+	 * This class will create a pop up screen asking the user to enter either an
+	 * estimated score for an item or an evaluated score on an item.
+	 * 
+	 * @param item
+	 */
+	public EnterScoreGUI(GradeItem item)
 	{
 		super("Score Entry");
 		this.item = item;
@@ -37,50 +44,72 @@ public class EnterScoreGUI extends JFrame {
 		setVisible(true);
 	}
 
-	public void buildScoreButtonPanel() 
+	public void buildScoreButtonPanel()
 	{
 		sPanel = new ScoreButtonPanel();
 		sPanel.getActualButton().addActionListener(new ActualListener(item));
-		sPanel.getEstimatedButton().addActionListener(new EstimatedListener(item));
+		sPanel.getEstimatedButton().addActionListener(
+				new EstimatedListener(item));
 	}
 
-	private class ActualListener extends Thread implements ActionListener 
+	/**
+	 * This class listens for the user to select the actual score button to
+	 * enter an evaluated score for that item.
+	 * 
+	 * @author John, Corbin and Rachel
+	 * 
+	 */
+	private class ActualListener extends Thread implements ActionListener
 	{
 		private GradeItem item;
 		private Course processingCourse;
+
 		public ActualListener(GradeItem item)
 		{
 			this.item = item;
 			processingCourse = Course.getInstance();
 		}
-		public void actionPerformed(ActionEvent e) 
+
+		public void actionPerformed(ActionEvent e)
 		{
 			dispose();
-			if (scoreEntry.getText() != null) 
+			try
 			{
-				score = Double.parseDouble(scoreEntry.getText());
-				if (score != 0.0 && item != null) 
+				score = Double.valueOf(scoreEntry.getText().trim())
+						.doubleValue();
+			} catch (NumberFormatException e1)
+			{
+				System.out.println("NumberFormatException: " + e1.getMessage());
+				if (score != 0.0 && item != null)
 				{
 					processingCourse.setEvaluatedPoints(item.getName(), score);
-					System.out.println("total " + processingCourse.getPercentageTotal());
-					System.out.println("score " + processingCourse.getPercentageScore());
 				}
 			}
 		}
 	}
 
-	private class EstimatedListener extends Thread implements ActionListener 
+	/**
+	 * This class listens for the user to select the actual score button to
+	 * enter an evaluated score for that item.
+	 * 
+	 * @author John, Corbin and Rachel
+	 * 
+	 */
+	private class EstimatedListener extends Thread implements ActionListener
 	{
 		private GradeItem item;
-		private Course processingCourse ;
+		private Course processingCourse;
+
 		public EstimatedListener(GradeItem item)
 		{
 			processingCourse = Course.getInstance();
 			this.item = item;
 		}
-		public void actionPerformed(ActionEvent e) {
+
+		public void actionPerformed(ActionEvent e)
+		{
 			dispose();
-			if (scoreEntry.getText() != null) 
+			if (scoreEntry.getText() != null && scoreEntry.getText() != " ")
 			{
 				score = Double.parseDouble(scoreEntry.getText());
 				if (score != 0.0 && item != null)

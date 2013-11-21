@@ -7,6 +7,12 @@ import javax.swing.JPanel;
 
 public class ScoreButtonPanel extends JPanel
 {
+	/**
+	 * This class will display 2 buttons on a panel which will allow the user to 
+	 * select whether the score is actual or estimated. 
+	 * @author John, Rachel and Corbin. 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton estimatedButton;
 	private JButton actualButton;
 	

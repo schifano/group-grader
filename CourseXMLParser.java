@@ -2,7 +2,9 @@ package edu.ilstu;
 
 
 
-import java.io.*;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Stack;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -94,7 +96,7 @@ class CourseXMLHandler extends DefaultHandler
 	@Override
 	public void endDocument()
 	{
-		System.out.println("-----Parsing has ended------");
+		;
 	}
 	
 	/**
