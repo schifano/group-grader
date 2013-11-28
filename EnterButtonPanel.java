@@ -22,7 +22,7 @@ public class EnterButtonPanel extends JPanel
 	{
 		setLayout(new FlowLayout());
 
-		back = new JButton("Back");
+		back = new JButton("CLick here when done entering grades");
 
 		add(back);
 

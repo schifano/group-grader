@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -107,8 +108,16 @@ public class GradeComboBox extends JPanel implements TreeSelectionListener
 	 */
 	public void refresher()
 	{
-		String displayText = Double.toString(processingCourse
-				.getPercentageTotal());
+		double coursePerformance = 0.0;
+		if (processingCourse != null && processingCourse.getPercentageTotal() != 0)
+		{
+			coursePerformance = processingCourse.getPercentageScore()/ processingCourse.getPercentageTotal();
+		}
+		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+		defaultFormat.setMinimumFractionDigits(2);
+		
+		String displayText = "  " + defaultFormat.format(coursePerformance);
+		
 		gPanel.getGradeField().setText(displayText);
 	}
 

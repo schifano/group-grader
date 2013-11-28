@@ -79,11 +79,11 @@ public class EnterScoreGUI extends JFrame
 						.doubleValue();
 			} catch (NumberFormatException e1)
 			{
-				System.out.println("NumberFormatException: " + e1.getMessage());
-				if (score != 0.0 && item != null)
-				{
-					processingCourse.setEvaluatedPoints(item.getName(), score);
-				}
+				;
+			}
+			if (score != 0.0 && item != null)
+			{
+				processingCourse.setEvaluatedPoints(item.getName(), score);
 			}
 		}
 	}
@@ -109,15 +109,18 @@ public class EnterScoreGUI extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			dispose();
-			if (scoreEntry.getText() != null && scoreEntry.getText() != " ")
+			try
 			{
-				score = Double.parseDouble(scoreEntry.getText());
-				if (score != 0.0 && item != null)
-				{
-					processingCourse.setEstimatedPoints(item.getName(), score);
-				}
+				score = Double.valueOf(scoreEntry.getText().trim())
+						.doubleValue();
+			} catch (NumberFormatException e1)
+			{
+				;
 			}
-
+			if (score != 0.0 && item != null)
+			{
+				processingCourse.setEstimatedPoints(item.getName(), score);
+			}
 		}
 	}
 }

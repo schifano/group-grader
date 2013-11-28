@@ -1,6 +1,7 @@
 package edu.ilstu;
 
 import java.awt.BorderLayout;
+import java.text.NumberFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,14 +26,17 @@ public class GradePanel extends JPanel
 		processingCourse = Course.getInstance();
 		setLayout(new BorderLayout());
 
-		gradeLabel = new JLabel("Percentage: ");
-
+		gradeLabel = new JLabel("Current percentage: ");
 		double coursePerformance = 0.0;
-		if (processingCourse != null)
+		
+		if (processingCourse != null && processingCourse.getPercentageTotal() != 0)
 		{
-			coursePerformance = processingCourse.getPercentageTotal();
+			coursePerformance = processingCourse.getPercentageScore()/ processingCourse.getPercentageTotal();
 		}
-		String display = "  " + coursePerformance + " % ";
+		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+		defaultFormat.setMinimumFractionDigits(2);
+		
+		String display = "  " + defaultFormat.format(coursePerformance);
 		gradeField = new JTextField(display);
 		gradeField.setEnabled(false);
 
